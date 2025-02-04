@@ -1,4 +1,5 @@
 const URL_BASE = "https://movetrack.develotion.com/";
+const URL_IMG = "https://movetrack.develotion.com/imgs/";
 const INPUT_USUARIO_REGISTRO = document.querySelector("#iUsuarioR");
 const INPUT_PASSWORD_REGISTRO = document.querySelector("#iPasswordR");
 const INPUT_PAIS = document.querySelector("#iPais");
