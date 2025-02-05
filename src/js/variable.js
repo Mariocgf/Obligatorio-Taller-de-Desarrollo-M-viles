@@ -10,3 +10,9 @@ const BTN_REGISTRO = document.querySelector("#btnR");
 const INPUT_ACTIVIDAD = document.querySelector("#iActividad");
 const INPUT_TIEMPO = document.querySelector("#iTiempo");
 const INPUT_FECHA = document.querySelector("#iFecha");
+
+
+const MENU = document.querySelector("#menu");
+const ROUTER = document.querySelector("#ruteo");
+const HOME = document.querySelector("#pantalla-home");
+const LOGINP = document.querySelector("#pantalla-login");

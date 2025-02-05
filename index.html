@@ -1,18 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
 </head>
+
 <body>
-    
-    <div id="pantalla-login">
+    <ion-app>
+        <!-- Componente de ruteo -->
+        <ion-router id="ruteo">
+            <ion-route url="/" component="page-home"></ion-route>
+            <ion-route url="/login" component="page-login"></ion-route>
+
+        </ion-router>
+        <ion-nav></ion-nav>
+        <!-- MENU -->
+        <ion-menu side="start" menu-id="first" content-id="main" id="menu">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <iont-title>Menu de inicio</iont-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content>
+                <ion-list id="menu-opciones">
+                    <ion-item onclick=CloseMenu() href="/">Home</ion-item>
+                    <ion-item onclick=CloseMenu() href="/login">Login</ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+        <div id="main"></div>
+
+        <page-home class="ion-page" id="pantalla-home">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>HOME</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                Pantalla de home
+            </ion-content>
+
+        </page-home>
+        <page-login class="ion-page" id="pantalla-login">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>Login</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-input label="Nombre" label-placement="floating" placeholder="Example" id="iUsuario"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input label="Password" type="password" label-placement="floating" placeholder="********" id="iPassword"></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-button expand="full" id="btnLogin">Login</ion-button>
+            </ion-content>
+
+        </page-login>
+    </ion-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div id="pantalla-login">
         <h2>Login</h2>
 
-            <input type="text" name="" id="iUsuarioL" value="Mario" placeholder="Ingrese un usuario">
-            <input type="text" name="" id="iPasswordL" value="Mario264" placeholder="Ingrese una contraseña">
-            <button id="btnL">Iniciar sesion</button>
+        <input type="text" name="" id="iUsuarioL" value="Mario" placeholder="Ingrese un usuario">
+        <input type="text" name="" id="iPasswordL" value="Mario264" placeholder="Ingrese una contraseña">
+        <button id="btnL">Iniciar sesion</button>
 
     </div>
     <div id="pantalla-registroUsuario">
@@ -32,11 +113,12 @@
     <div id="pantalla-actividades">
         <h2>Actividades realizadas</h2>
         <div id="actividades">
-            
+
         </div>
-    </div>
+    </div> -->
     <script src="src/js/entity.js"></script>
     <script src="src/js/variable.js"></script>
     <script src="src/js/index.js"></script>
 </body>
+
 </html>

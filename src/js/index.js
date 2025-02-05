@@ -1,10 +1,11 @@
 
 Inicio()
 function Inicio() {
-    GetPaises();
-    GetActividades();
-    BtnEvents();
-    SetMaxFecha();
+    //GetPaises();
+    //GetActividades();
+    //BtnEvents();
+    //SetMaxFecha();
+    Eventos();
 }
 function BtnEvents() {
     BTN_LOGIN.addEventListener("click", Login);
@@ -43,9 +44,9 @@ async function DoFetch(endpoint, method, body, header, param) {
 }
 
 async function Login() {
-    console.log("Entre")
-    let usuario = INPUT_USUARIO_LOGIN.value;
-    let password = INPUT_PASSWORD_LOGIN.value;
+    //let usuario = INPUT_USUARIO_LOGIN.value;
+    //let password = INPUT_PASSWORD_LOGIN.value;
+    let {usuario, password} = TomarDatos();
     let body = {
         usuario: usuario,
         password: password
@@ -53,8 +54,7 @@ async function Login() {
     console.log(body)
     let data = await DoFetch("login.php", "post", body)
     SaveSession(data);
-    let { apikey, iduser } = GetSession();
-    console.log(apikey, iduser);
+    console.log(data.codigo);
 }
 //Funciones POST
 async function Registrar() {
@@ -101,8 +101,7 @@ async function DeleteRegistro() {
 }
 
 function Logout() {
-    localStorage.removeItem("apikey");
-    localStorage.removeItem("iduser");
+    localStorage.clear();
 }
 function CheckSession() {
     return !localStorage.getItem("apikey") ? false : true;
@@ -114,4 +113,34 @@ function SaveSession(data) {
 }
 function GetSession() {
     return { apikey: localStorage.getItem("apikey"), iduser: localStorage.getItem("iduser") }
+}
+
+
+
+
+function CloseMenu(){
+    MENU.close();
+}
+function Eventos(){
+    ROUTER.addEventListener("ionRouteDidChange", Navegar);
+    document.querySelector("#btnLogin").addEventListener("click", Login)
+}
+function TomarDatos(){
+    let usuario = document.querySelector("#iUsuario").value;
+    let password = document.querySelector("#iPassword").value;
+    return {usuario: usuario, password: password};
+}
+
+function Navegar(e){
+    OcultarPantallas();
+    const RUTA = e.detail.to;
+    if(RUTA == "/"){
+        HOME.style.display = "block";
+    }else{
+        LOGINP.style.display = "block";
+    }
+}
+function OcultarPantallas(){
+    HOME.style.display = "none";
+    LOGINP.style.display = "none";
 }
