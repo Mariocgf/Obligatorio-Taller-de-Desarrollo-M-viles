@@ -11,6 +11,14 @@
 </head>
 
 <body>
+    <style>
+        .example-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+        }
+      </style>
     <ion-app>
         <!-- Componente de ruteo -->
         <ion-router id="ruteo">
@@ -20,7 +28,7 @@
         </ion-router>
         <ion-nav></ion-nav>
         <!-- MENU -->
-        <ion-menu side="start" menu-id="first" content-id="main" id="menu">
+       <!--  <ion-menu side="start" menu-id="first" content-id="main" id="menu">
             <ion-header>
                 <ion-toolbar color="primary">
                     <iont-title>Menu de inicio</iont-title>
@@ -34,9 +42,85 @@
                 </ion-list>
             </ion-content>
         </ion-menu>
-        <div id="main"></div>
+        <div id="main"></div> -->
 
-        <page-home class="ion-page" id="pantalla-home">
+
+
+        <ion-tabs>
+            <ion-tab tab="home">
+              <ion-nav id="home-nav"></ion-nav>
+              <div id="home-page">
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Listen now</ion-title>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                  <div class="example-content">Listen now content</div>
+                </ion-content>
+              </div>
+            </ion-tab>
+            <ion-tab tab="radio">
+              <ion-nav id="radio-nav"></ion-nav>
+              <div id="radio-page">
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Radio</ion-title>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                  <div class="example-content">Radio content</div>
+                </ion-content>
+              </div>
+            </ion-tab>
+            <ion-tab tab="library">
+              <ion-nav id="library-nav"></ion-nav>
+              <div id="library-page">
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Library</ion-title>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                  <div class="example-content">Library content</div>
+                </ion-content>
+              </div>
+            </ion-tab>
+            <ion-tab tab="search">
+              <ion-nav id="search-nav"></ion-nav>
+              <div id="search-page">
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Search</ion-title>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                  <div class="example-content">Search content</div>
+                </ion-content>
+              </div>
+            </ion-tab>
+            <ion-tab-bar slot="bottom">
+              <ion-tab-button tab="home">
+                <ion-icon name="play-circle"></ion-icon>
+                Listen Now
+              </ion-tab-button>
+              <ion-tab-button tab="radio">
+                <ion-icon name="radio"></ion-icon>
+                Radio
+              </ion-tab-button>
+              <ion-tab-button tab="library">
+                <ion-icon name="library"></ion-icon>
+                Library
+              </ion-tab-button>
+              <ion-tab-button tab="search">
+                <ion-icon name="search"></ion-icon>
+                Search
+              </ion-tab-button>
+            </ion-tab-bar>
+          </ion-tabs>
+
+
+       <!--  <page-home class="ion-page" id="pantalla-home">
             <ion-header>
                 <ion-toolbar>
                     <ion-buttons slot="start">
@@ -48,30 +132,37 @@
             <ion-content>
                 Pantalla de home
             </ion-content>
+        </page-home> -->
 
-        </page-home>
+
+
         <page-login class="ion-page" id="pantalla-login">
             <ion-header>
-                <ion-toolbar>
-                    <ion-buttons slot="start">
-                        <ion-menu-button></ion-menu-button>
-                    </ion-buttons>
-                    <ion-title>Login</ion-title>
-                </ion-toolbar>
+                
             </ion-header>
-            <ion-content>
-                <ion-list>
-                    <ion-item>
-                        <ion-input label="Nombre" label-placement="floating" placeholder="Example" id="iUsuario"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-input label="Password" type="password" label-placement="floating" placeholder="********" id="iPassword"></ion-input>
-                    </ion-item>
-                </ion-list>
-                <ion-button expand="full" id="btnLogin">Login</ion-button>
+            <ion-content class="ion-padding ion-text-center" fullscreen >
+                <ion-segment color="dark" value="dark">
+                    <ion-segment-button value="dark" id="segment-login">
+                        <ion-label >Login</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="segment" id="segment-registro">
+                        <ion-label >Registro</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+                <h1>Login</h1>
+
+                <ion-input class="ion-margin-bottom" label="Nombre" label-placement="floating" fill="outline" placeholder="Enter text" id="iUsuario"></ion-input>
+
+                <ion-input class="ion-margin-bottom" label="Password" label-placement="floating" fill="outline" placeholder="Enter text" id="iPassword" type="password"></ion-input>
+
+                <ion-select class="ion-margin-bottom" label="Pais" interface="popover" label-placement="floating" fill="outline" id="iPais"></ion-select>
+
+                <ion-button expand="full" id="btnLogin" shape="round">Login</ion-button>
+                <ion-button expand="full" id="btnRegistro" shape="round">Registro</ion-button>
+
             </ion-content>
 
-        </page-login>
+        </page-login> 
     </ion-app>
 
 
@@ -119,6 +210,7 @@
     <script src="src/js/entity.js"></script>
     <script src="src/js/variable.js"></script>
     <script src="src/js/index.js"></script>
+
 </body>
 
 </html>

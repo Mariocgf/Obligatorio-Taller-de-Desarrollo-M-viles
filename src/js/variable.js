@@ -5,8 +5,8 @@ const INPUT_PASSWORD_REGISTRO = document.querySelector("#iPasswordR");
 const INPUT_PAIS = document.querySelector("#iPais");
 const INPUT_USUARIO_LOGIN = document.querySelector("#iUsuarioL");
 const INPUT_PASSWORD_LOGIN = document.querySelector("#iPasswordL");
-const BTN_LOGIN = document.querySelector("#btnL");
-const BTN_REGISTRO = document.querySelector("#btnR");
+const BTN_LOGIN = document.querySelector("#btnLogin");
+const BTN_REGISTRO = document.querySelector("#btnRegistro");
 const INPUT_ACTIVIDAD = document.querySelector("#iActividad");
 const INPUT_TIEMPO = document.querySelector("#iTiempo");
 const INPUT_FECHA = document.querySelector("#iFecha");
@@ -16,3 +16,7 @@ const MENU = document.querySelector("#menu");
 const ROUTER = document.querySelector("#ruteo");
 const HOME = document.querySelector("#pantalla-home");
 const LOGINP = document.querySelector("#pantalla-login");
+
+const SEGMENT_LOGIN = document.querySelector("#segment-login");
+const SEGMENT_REGISTRO = document.querySelector("#segment-registro");
+

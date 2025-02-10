@@ -1,14 +1,18 @@
 
 Inicio()
 function Inicio() {
-    //GetPaises();
+    /* if(localStorage.getItem("apikey")){
+        location.href("/login");
+    } */
+    GetPaises();
     //GetActividades();
-    //BtnEvents();
+    BtnEvents();
     //SetMaxFecha();
     Eventos();
 }
 function BtnEvents() {
     BTN_LOGIN.addEventListener("click", Login);
+    BTN_REGISTRO.addEventListener("click", Registrar)
 }
 function SetMaxFecha() {
     let fecha = new Date()
@@ -54,14 +58,14 @@ async function Login() {
     console.log(body)
     let data = await DoFetch("login.php", "post", body)
     SaveSession(data);
-    console.log(data.codigo);
+    console.log(data);
 }
 //Funciones POST
 async function Registrar() {
-    let usuario = INPUT_USUARIO_REGISTRO.value;
-    let password = INPUT_PASSWORD_REGISTRO.value;
-    let pais = INPUT_PAIS.value;
-    let data = DoFetch("usuarios.php", "post", new Usuario(usuario, password, pais));
+    let {usuario, password, pais} = TomarDatos();
+    console.log(usuario, password, pais)
+    let data = await DoFetch("usuarios.php", "post", new Usuario(usuario, password, pais));
+    console.log(data)
     SaveSession(data);
 }
 async function SetRegistro() {
@@ -87,7 +91,7 @@ async function GetRegistros() {
 }
 async function GetPaises() {
     let paises = await DoFetch("paises.php");
-    paises.paises.forEach(elem => { INPUT_PAIS.innerHTML += `<option value="${elem.currency}">${elem.name}</option>` })
+    paises.paises.forEach(elem => { INPUT_PAIS.innerHTML += `<ion-select-option value="${elem.currency}">${elem.name}</ion-select-option>` })
 }
 async function GetActividades() {
     if(localStorage.getItem("apikey")){
@@ -123,24 +127,39 @@ function CloseMenu(){
 }
 function Eventos(){
     ROUTER.addEventListener("ionRouteDidChange", Navegar);
-    document.querySelector("#btnLogin").addEventListener("click", Login)
+    document.querySelector("#btnLogin").addEventListener("click", Login);
+    SEGMENT_LOGIN.addEventListener("click", MostrarFormLogin);
+    SEGMENT_REGISTRO.addEventListener("click", MostrarFormRegistro);
+}
+function MostrarFormLogin(){
+    INPUT_PAIS.style.display = "none";
+    BTN_REGISTRO.style.display = "none";
+    BTN_LOGIN.style.display = "block";
+}
+function MostrarFormRegistro(){
+    INPUT_PAIS.style.display = "block";
+    BTN_REGISTRO.style.display = "block";
+    BTN_LOGIN.style.display = "none";
 }
 function TomarDatos(){
     let usuario = document.querySelector("#iUsuario").value;
     let password = document.querySelector("#iPassword").value;
-    return {usuario: usuario, password: password};
+    let pais = document.querySelector("#iPais").value;
+    return {usuario: usuario, password: password, pais: pais};
 }
 
 function Navegar(e){
     OcultarPantallas();
     const RUTA = e.detail.to;
     if(RUTA == "/"){
-        HOME.style.display = "block";
-    }else{
+        //HOME.style.display = "block";
         LOGINP.style.display = "block";
+    }else{
     }
 }
 function OcultarPantallas(){
-    HOME.style.display = "none";
+    //HOME.style.display = "none";
     LOGINP.style.display = "none";
+    INPUT_PAIS.style.display = "none";
+    BTN_REGISTRO.style.display = "none";
 }
