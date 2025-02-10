@@ -20,3 +20,5 @@ const LOGINP = document.querySelector("#pantalla-login");
 const SEGMENT_LOGIN = document.querySelector("#segment-login");
 const SEGMENT_REGISTRO = document.querySelector("#segment-registro");
 
+const NAV = document.querySelector("ion-nav");
+
