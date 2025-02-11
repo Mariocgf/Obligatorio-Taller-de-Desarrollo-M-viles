@@ -19,8 +19,14 @@ async function DoFetch(endpoint, method, body, header, param) {
     } else {
         response = await fetch(`${URL_BASE}${endpoint}?${param}`, config)
     }
-    let data = await response.json();
-    return data;
+    console.log(response.status)
+    if (response.status == 200) {
+        let data = await response.json();
+        console.log(data)
+        return data;
+    } else {
+        throw new Error("Credenciales invalidas.");
+    }
 }
 function SetMaxFecha() {
     let fecha = new Date()
@@ -31,7 +37,9 @@ function SetMaxFecha() {
     console.log(`${anio}/${mes.toString().padStart(2, '0')}/${dia.toString().padStart(2, '0')}`)
 }
 function Logout() {
+    CloseMenu();
     localStorage.clear();
+    NAV.push("page-login");
 }
 function CheckSession() {
     return !localStorage.getItem("apikey") ? false : true;
@@ -40,4 +48,15 @@ function CheckSession() {
 function SaveSession(data) {
     localStorage.setItem("apikey", data.apiKey);
     localStorage.setItem("iduser", data.id);
+}
+
+function ErrorMsg(status, obj){
+    switch (status) {
+        case 400:
+            throw new Error("")
+        case 404:
+            throw new Error(`${obj} no encontrado.`);
+        case 409:
+            throw new Error("Credenciales no valida");
+    }
 }

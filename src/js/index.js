@@ -16,10 +16,15 @@ async function Login() {
         password: password
     }
     console.log(body)
-    let data = await DoFetch("login.php", "post", body)
-    SaveSession(data);
-    Navegar();
+    try {
+        let data = await DoFetch("login.php", "post", body)
+        SaveSession(data);
+        NAV.push("page-home");
+    } catch (error) {
+        MostrarToast(error.message, 2000)
+    }
 }
+
 //Funciones POST
 async function Registrar() {
     let { usuario, password, pais } = TomarDatos();
@@ -98,7 +103,7 @@ function TomarDatos() {
 
 function Navegar(e) {
     OcultarPantallas();
-    const RUTA = e;
+    const RUTA = e.detail.to;
     console.log(e)
     if (!localStorage.getItem("apikey")){
         NAV.push("page-login");

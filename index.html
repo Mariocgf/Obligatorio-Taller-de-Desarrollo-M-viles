@@ -24,7 +24,7 @@
         <ion-router id="ruteo">
             <ion-route url="/" component="page-home"></ion-route>
             <ion-route url="/login" component="page-login"></ion-route>
-
+            <ion-route url="/actividades" component="page-activity"></ion-route>
         </ion-router>
         <ion-nav></ion-nav>
         <!-- MENU -->
@@ -38,16 +38,13 @@
             <ion-content>
                 <ion-list id="menu-opciones">
                     <ion-item onclick=CloseMenu() href="/">Home</ion-item>
-                    <ion-item onclick=CloseMenu() href="/logout">Logout</ion-item>
+                    <ion-item onclick=CloseMenu() href="/actividades" >Ver actividades</ion-item>
+                    <ion-item onclick=CloseMenu() href="/actividades/registro" >Registrar actividad</ion-item>
+                    <ion-item onclick=Logout() >Logout</ion-item>
                 </ion-list>
             </ion-content>
         </ion-menu>
         <div id="main"></div>
-
-
-
-
-
 
         <page-home class="ion-page" id="pantalla-home">
             <ion-header>
@@ -63,14 +60,11 @@
             </ion-content>
         </page-home>
 
-
-
-        <page-login class="ion-page" id="pantalla-login">
-            <ion-header>
-                
+        <page-login class="ion-page " id="pantalla-login">
+            <ion-header>      
             </ion-header>
-            <ion-content class="ion-padding ion-text-center" fullscreen >
-                <ion-segment color="dark" value="dark">
+            <ion-content class="ion-padding ion-align-items-center" fullscreen >
+                <ion-segment color="dark" value="dark" class="">
                     <ion-segment-button value="dark" id="segment-login">
                         <ion-label >Login</ion-label>
                     </ion-segment-button>
@@ -79,8 +73,7 @@
                     </ion-segment-button>
                 </ion-segment>
               
-
-                <ion-input class="ion-margin-bottom" label="Nombre" label-placement="floating" fill="outline" placeholder="Enter text" id="iUsuario"></ion-input>
+                <ion-input class="ion-margin-bottom ion-margin-top" label="Nombre" label-placement="floating" fill="outline" placeholder="Enter text" id="iUsuario"></ion-input>
 
                 <ion-input class="ion-margin-bottom" label="Password" label-placement="floating" fill="outline" placeholder="Enter text" id="iPassword" type="password"></ion-input>
 
@@ -88,10 +81,22 @@
 
                 <ion-button expand="full" id="btnLogin" shape="round">Login</ion-button>
                 <ion-button expand="full" id="btnRegistro" shape="round">Registro</ion-button>
-
             </ion-content>
-
         </page-login> 
+
+        <page-activity>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>Actividades</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                    hola
+            </ion-content>
+        </page-activity>
     </ion-app>
     <script src="src/js/entity.js"></script>
     <script src="src/js/variable.js"></script>
