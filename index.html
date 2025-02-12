@@ -8,17 +8,10 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link rel="stylesheet" href="src/css/style.css">
 </head>
 
 <body>
-    <style>
-        .example-content {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-        }
-      </style>
     <ion-app>
         <!-- Componente de ruteo -->
         <ion-router id="ruteo">
@@ -38,9 +31,9 @@
             <ion-content>
                 <ion-list id="menu-opciones">
                     <ion-item onclick=CloseMenu() href="/">Home</ion-item>
-                    <ion-item onclick=CloseMenu() href="/actividades" >Ver actividades</ion-item>
-                    <ion-item onclick=CloseMenu() href="/actividades/registro" >Registrar actividad</ion-item>
-                    <ion-item onclick=Logout() >Logout</ion-item>
+                    <ion-item onclick=CloseMenu() href="/actividades">Ver actividades</ion-item>
+                    <ion-item onclick=CloseMenu() href="/actividades/registro">Registrar actividad</ion-item>
+                    <ion-item onclick=Logout()>Logout</ion-item>
                 </ion-list>
             </ion-content>
         </ion-menu>
@@ -61,30 +54,33 @@
         </page-home>
 
         <page-login class="ion-page " id="pantalla-login">
-            <ion-header>      
+            <ion-header>
             </ion-header>
-            <ion-content class="ion-padding ion-align-items-center" fullscreen >
+            <ion-content class="ion-padding ion-align-items-center" fullscreen>
                 <ion-segment color="dark" value="dark" class="">
                     <ion-segment-button value="dark" id="segment-login">
-                        <ion-label >Login</ion-label>
+                        <ion-label>Login</ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="segment" id="segment-registro">
-                        <ion-label >Registro</ion-label>
+                        <ion-label>Registro</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-              
-                <ion-input class="ion-margin-bottom ion-margin-top" label="Nombre" label-placement="floating" fill="outline" placeholder="Enter text" id="iUsuario"></ion-input>
 
-                <ion-input class="ion-margin-bottom" label="Password" label-placement="floating" fill="outline" placeholder="Enter text" id="iPassword" type="password"></ion-input>
+                <ion-input class="ion-margin-bottom ion-margin-top" label="Nombre" label-placement="floating"
+                    fill="outline" placeholder="Enter text" id="iUsuario"></ion-input>
 
-                <ion-select class="ion-margin-bottom" label="Pais" interface="popover" label-placement="floating" fill="outline" id="iPais"></ion-select>
+                <ion-input class="ion-margin-bottom" label="Password" label-placement="floating" fill="outline"
+                    placeholder="Enter text" id="iPassword" type="password"></ion-input>
+
+                <ion-select class="ion-margin-bottom" label="Pais" interface="popover" label-placement="floating"
+                    fill="outline" id="iPais"></ion-select>
 
                 <ion-button expand="full" id="btnLogin" shape="round">Login</ion-button>
                 <ion-button expand="full" id="btnRegistro" shape="round">Registro</ion-button>
             </ion-content>
-        </page-login> 
+        </page-login>
 
-        <page-activity>
+        <page-activity class="ion-page" id="pantalla-actividades">
             <ion-header>
                 <ion-toolbar>
                     <ion-buttons slot="start">
@@ -93,8 +89,31 @@
                     <ion-title>Actividades</ion-title>
                 </ion-toolbar>
             </ion-header>
-            <ion-content>
-                    hola
+            <ion-segment color="dark" value="dark" class="">
+                <ion-segment-button value="dark" id="segment-actividades">
+                    <ion-label>Actividades</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="segment" id="segment-registrarActividades">
+                    <ion-label>Registrar</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+            <ion-content color="light" id="actividades">
+                <ion-list inset="true" id="listaActividades">
+
+                </ion-list>
+            </ion-content>
+            <ion-content id="actividadesRegistro" class="ion-padding">
+                <ion-select class="ion-margin-bottom ion-margin-top" label="Actividad" interface="popover"
+                    label-placement="floating" fill="outline" id="iActividad"></ion-select>
+
+                <ion-input class="ion-margin-bottom " label="Tiempo" label-placement="floating" fill="outline"
+                    placeholder="Enter text" id="iTiempo"></ion-input>
+                <ion-datetime-button id="dateEventoFecha" datetime="iFecha" ></ion-datetime-button>
+                <ion-modal>
+                    <ion-datetime id="iFecha" presentation="date"></ion-datetime>
+                </ion-modal>
+
+                <ion-button expand="full" id="btnRegistroAct" shape="round">Registrar actividad</ion-button>
             </ion-content>
         </page-activity>
     </ion-app>

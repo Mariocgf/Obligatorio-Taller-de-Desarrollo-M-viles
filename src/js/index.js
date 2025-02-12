@@ -6,7 +6,8 @@ function Inicio() {
 }
 function BtnEvents() {
     BTN_LOGIN.addEventListener("click", Login);
-    BTN_REGISTRO.addEventListener("click", Registrar)
+    BTN_REGISTRO.addEventListener("click", Registrar);
+    BTN_REGISTRO_ACTIVIDAD.addEventListener("click", SetRegistro);
 }
 
 async function Login() {
@@ -40,21 +41,38 @@ async function SetRegistro() {
     let { iduser } = header;
     let tiempo = INPUT_TIEMPO.value;
     let fecha = INPUT_FECHA.value;
+    FormatDate(INPUT_FECHA.value);
     await DoFetch("registros.php", "post", new Registro(idActividad, iduser, tiempo, fecha), header);
 }
-
+function FormatDate(fecha){
+    let date = new Date(fecha);
+    let anio = date.getFullYear();
+    let mes = date.getMonth() + 1;
+    let dia = date.getDate();
+    return `${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+}
 // Funciones GET
 async function GetRegistros() {
-    let aux = document.querySelector("#actividades");
+    PrenderLoading("Cargando actividades");
+    LISTA_ACTIVIDADES.innerHTML = "";
     let header = GetSession();
     let data = await DoFetch("registros.php", "get", {}, header, `idUsuario=${localStorage.getItem("iduser")}`);
     let actividades = await DoFetch("actividades.php", "get", {}, GetSession());
     data.registros.forEach(elem => {
         let actividad = actividades.actividades.find(e => e.id == elem.idActividad)
-        console.log(actividad)
-        aux.innerHTML += `<p><img src="${URL_IMG + actividad.imagen}.png" alt="">${actividad.nombre} - ${elem.tiempo} - ${elem.fecha}</p>`
+        LISTA_ACTIVIDADES.innerHTML += `
+        <ion-item>
+            <ion-thumbnail slot="start">
+            <img alt=${actividad.nombre} src="${URL_IMG + actividad.imagen}.png" />
+            </ion-thumbnail>
+            <ion-label>${actividad.nombre} - ${elem.tiempo} - ${elem.fecha}</ion-label>
+            <ion-button shape="round" color="danger" onClick=DeleteRegistro(${elem.id})>
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-item>`
     })
-    console.log(data.registros);
+    loading.dismiss();
+
 }
 async function GetPaises() {
     let paises = await DoFetch("paises.php");
@@ -63,12 +81,13 @@ async function GetPaises() {
 async function GetActividades() {
     if (localStorage.getItem("apikey")) {
         let data = await DoFetch("actividades.php", "get", {}, GetSession());
-        data.actividades.forEach(elem => { INPUT_ACTIVIDAD.innerHTML += `<option value="${elem.id}">${elem.nombre}</option>` })
+        data.actividades.forEach(elem => { INPUT_ACTIVIDAD.innerHTML += `<ion-select-option value="${elem.id}">${elem.nombre} </ion-select-option>` })
     }
 }
 
 async function DeleteRegistro(id) {
-    
+    await DoFetch("registros.php","delete","",GetSession(),`idRegistro=${id}`);
+    GetRegistros();
 }
 
 function GetSession() {
@@ -82,6 +101,8 @@ function Eventos() {
     ROUTER.addEventListener("ionRouteDidChange", Navegar);
     SEGMENT_LOGIN.addEventListener("click", MostrarFormLogin);
     SEGMENT_REGISTRO.addEventListener("click", MostrarFormRegistro);
+    SEGMENT_ACTIVIDADES.addEventListener("click", MostrarActividades);
+    SEGMENT_REGISTRAR_ACTIVIDADES.addEventListener("click", MostrarRegistroActividad);
 }
 function MostrarFormLogin() {
     INPUT_PAIS.style.display = "none";
@@ -94,6 +115,15 @@ function MostrarFormRegistro() {
     BTN_REGISTRO.style.display = "block";
     BTN_LOGIN.style.display = "none";
 }
+function MostrarActividades(){
+    GetActividades();
+    VISTA_ACTIVIDADES.style.display = "block";
+    VISTA_ACTIVIDADES_REGISTRO.style.display = "none";
+}
+function MostrarRegistroActividad(){
+    VISTA_ACTIVIDADES.style.display = "none";
+    VISTA_ACTIVIDADES_REGISTRO.style.display = "block";
+}
 function TomarDatos() {
     let usuario = document.querySelector("#iUsuario").value;
     let password = document.querySelector("#iPassword").value;
@@ -105,13 +135,17 @@ function Navegar(e) {
     OcultarPantallas();
     const RUTA = e.detail.to;
     console.log(e)
-    if (!localStorage.getItem("apikey")){
+    if (!localStorage.getItem("apikey")) {
         NAV.push("page-login");
     }
     if (RUTA == "/") {
         HOME.style.display = "block";
-    }else if (RUTA == "/login"){
-        LOGINP.style.display = " block"
+    } else if (RUTA == "/login") {
+        LOGINP.style.display = " block";
+    } else if (RUTA == "/actividades") {
+        ACTIVIDADES.style.display = "block";
+        GetRegistros();
+        GetActividades();
     }
 }
 function OcultarPantallas() {
@@ -119,10 +153,10 @@ function OcultarPantallas() {
     LOGINP.style.display = "none";
     INPUT_PAIS.style.display = "none";
     BTN_REGISTRO.style.display = "none";
+    ACTIVIDADES.style.display = "none";
 }
 
 
-const loading = document.createElement('ion-loading');
 function PrenderLoading(texto) {
     loading.cssClass = 'my-custom-class';
     loading.message = texto;

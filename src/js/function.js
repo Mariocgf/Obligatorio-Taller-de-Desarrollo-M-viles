@@ -19,10 +19,8 @@ async function DoFetch(endpoint, method, body, header, param) {
     } else {
         response = await fetch(`${URL_BASE}${endpoint}?${param}`, config)
     }
-    console.log(response.status)
     if (response.status == 200) {
         let data = await response.json();
-        console.log(data)
         return data;
     } else {
         throw new Error("Credenciales invalidas.");
